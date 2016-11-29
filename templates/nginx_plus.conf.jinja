@@ -1,0 +1,11 @@
+LoadPlugin python
+<Plugin python>
+  ModulePath "/opt/collectd/share/collectd"
+  Import "collectd-nginx_plus"
+  LogTraces true
+
+  <Module "collectd-nginx_plus">
+    URL "{{ librato_nginx_plus_protocol }}://{{ librato_nginx_plus_host }}{{ librato_nginx_plus_path }}"
+    Verbose {{ librato_nginx_plus_verbose }}
+  </Module>
+</Plugin>

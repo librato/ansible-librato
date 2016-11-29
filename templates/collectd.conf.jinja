@@ -1,0 +1,21 @@
+# This file is managed by Ansible.  Local changes will be overwritten.
+#
+#
+# Config file for collectd(1).
+# Please read collectd.conf(5) for a list of options.
+# http://collectd.org/
+#
+
+##############################################################################
+# Global                                                                     #
+#----------------------------------------------------------------------------#
+# Global settings for the daemon.                                            #
+##############################################################################
+
+Hostname    "{{ librato_hostname }}"
+FQDNLookup   {{ librato_fqdn_lookup }}
+Interval     {{ librato_interval }}
+
+# Include logging config before plugins collectd logs plugin log entries
+Include "{{ librato_plugin_config_path }}/logging.conf"
+Include "{{ librato_plugin_config_path }}/*.conf"

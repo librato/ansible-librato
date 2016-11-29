@@ -1,0 +1,23 @@
+LoadPlugin mysql
+<Plugin "mysql">
+{% for db in librato_mysql_databases %}
+  <Database "{{ db.name }}">
+    Host "{{ db.host }}"
+    User "{{ db.user }}"
+    {% if 'password' in db %}
+    Password "{{ db.password }}"
+    {% endif %}
+    {% if 'port' in db %}
+    Port {{ db.port }}
+    {% else %}
+    Port 3306
+    {% endif %}
+    {% if 'innodb_stats' in db %}
+    InnodbStats {{ db.innodb_stats }}
+    {% endif %}
+    {% if 'slave_stats' in db %}
+    SlaveStats {{ db.slave_stats }}
+    {% endif %}
+  </Database>
+{% endfor %}
+</Plugin>

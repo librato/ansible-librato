@@ -1,0 +1,3 @@
+- librato.librato
+- name: role-public
+  src: https://github.com/librato/ansible-librato.git

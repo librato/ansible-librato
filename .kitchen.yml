@@ -1,0 +1,79 @@
+driver:
+  name: vagrant
+
+provisioner:
+  name: ansible_playbook
+  require_ansible_repo: true
+  ansible_verbose: true
+  require_chef_for_busser: false
+  require_ruby_for_busser: true
+  hosts: hosts
+  roles_path: ../
+
+verifier:
+  ruby_bindir: '/usr/bin'
+
+platforms:
+  - name: centos-6
+    driver:
+      box: centos/6
+  - name: centos-7
+    driver:
+      box: centos/7
+  - name: fedora-23
+    driver:
+      box: fedora/23-cloud-base
+# Due to a bug in kitchen-ansible, statically set the ansible_platform to Amazon
+# See: https://github.com/neillturner/kitchen-ansible/issues/216
+  - name: amazonlinux-2016.03
+    driver:
+      name: ec2
+      image_id: ami-7172b611
+      aws_ssh_key_id: test-kitchen
+      region: us-west-2
+      availability_zone: a
+      instance_type: t2.large
+      associate_public_ip: true
+      interface: dns
+    transport:
+      username: ec2-user
+      ssh_key: ~/.ssh/id_rsa
+    provisioner:
+      ansible_platform: 'amazon'
+# Ansible doesn't provide Debian repos so we use the omnibus installer to provide Ansible
+  - name: debian-7
+    driver:
+      box: debian/wheezy64
+    provisioner:
+      require_ansible_omnibus: true
+      require_ansible_repo: false
+  - name: debian-8
+    driver:
+      box: debian/jessie64
+    provisioner:
+      require_ansible_omnibus: true
+      require_ansible_repo: false
+# Ubuntu 12.04 uses Ruby 1.8.7 while busser requires Ruby 1.9+, so we need to use Chef to run busser
+  - name: ubuntu-12.04
+    driver:
+      box: ubuntu/precise64
+    provisioner:
+      require_chef_for_busser: true
+      require_ruby_for_busser: false
+    verifier:
+      ruby_bindir: '/opt/chef/embedded/bin'
+  - name: ubuntu-14.04
+    driver:
+      box: ubuntu/trusty64
+  - name: ubuntu-15.04
+    driver:
+      box: larryli/vivid64
+  - name: ubuntu-15.10
+    driver:
+      box: ubuntu/wily64
+  - name: ubuntu-16.04
+    driver:
+      box: ubuntu/xenial64
+
+suites:
+  - name: default

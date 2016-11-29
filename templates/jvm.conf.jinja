@@ -1,0 +1,51 @@
+LoadPlugin java
+
+Include "/opt/collectd/share/collectd/jvm_default.conf"
+
+<Plugin "java">
+  <Plugin "GenericJMX">
+    <Connection>
+      Host "{{ librato_jvm_host }}"
+      ServiceURL "{{ librato_jvm_service_url }}"
+      Collect "memory_heap"
+      Collect "memory_nonheap"
+      Collect "classes"
+      Collect "threads"
+      Collect "compilation"
+      Collect "garbage_collector"
+      Collect "memory_pool"
+  {% if librato_jvm_mbeans is iterable %}
+    {% for mbean in librato_jvm_mbeans %}
+      Collect "{{ mbean.name }}"
+    {% endfor %}
+  {% endif %}
+    </Connection>
+{% if librato_jvm_mbeans is iterable %}
+  {% for mbean in librato_jvm_mbeans %}
+    <MBean "{{ mbean.name }}">
+      ObjectName "{{ mbean.object_name }}"
+    {% if 'instance_prefix' in mbean %}
+      InstancePrefix "{{ mbean.instance_prefix }}"
+    {% endif %}
+    {% if 'instance_from' in mbean %}
+      InstanceFrom "{{ mbean.instance_from }}"
+    {% endif %}
+
+    {% for value in mbean['values'] %}
+      <Value>
+        Type "{{ value.type }}"
+        Table {{ value.table }}
+        Attribute "{{ value.attribute }}"
+      {% if 'instance_prefix' in value %}
+        InstancePrefix "{{ value.instance_prefix }}"
+      {% endif %}
+      {% if 'instance_from' in value %}
+        InstanceFrom "{{ value.instance_from }}"
+      {% endif %}
+      </Value>
+    {% endfor %}
+    </MBean>
+  {% endfor %}
+{% endif %}
+  </Plugin>
+</Plugin>

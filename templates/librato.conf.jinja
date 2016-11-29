@@ -1,0 +1,11 @@
+LoadPlugin write_http
+<Plugin write_http>
+  <Node "librato">
+    URL "https://collectd.librato.com/v1/measurements"
+    Format "JSON"
+    BufferSize 8192
+
+    User "{{ librato_email }}"
+    Password "{{ librato_token }}"
+  </Node>
+</Plugin>

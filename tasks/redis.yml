@@ -1,0 +1,9 @@
+- name: Redis plugin
+  copy:
+    src: "redis.conf.jinja"
+    dest: "{{ plugin_config_path }}/redis.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

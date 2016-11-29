@@ -1,0 +1,3 @@
+---
+- include: repo.yml tags=librato
+- include: agent.yml tags=librato

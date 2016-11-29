@@ -1,0 +1,83 @@
+- name: Install package (Debian/Ubuntu)
+  apt:
+    name: collectd-core={{ librato_deb_version }}
+    state: present
+  notify:
+    - collectd
+  when: ansible_os_family == 'Debian'
+
+- name: Install package (RedHat/CentOS/Amazon)
+  yum:
+    name: collectd-core-{{ librato_rh_version }}
+    state: present
+  notify:
+    - collectd
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution != 'Fedora'
+
+- name: Install package (Fedora)
+  dnf:
+    name: collectd-core-{{ librato_rh_version }}
+    state: present
+  notify:
+    - collectd
+  when: ansible_distribution == 'Fedora'
+
+- name: setup_collectd_config
+  template:
+    src: collectd.conf.jinja
+    dest: "{{ librato_config_base }}/collectd.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd
+
+- name: setup_logging_plugin
+  template:
+    src: logging.conf.jinja
+    dest: "{{ librato_plugin_config_path }}/logging.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd
+
+- name: setup_librato_plugin
+  template:
+    src: librato.conf.jinja
+    dest: "{{ librato_plugin_config_path }}/librato.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd
+
+- name: Default plugins
+  copy:
+    src: "{{ item }}.conf"
+    dest: "{{ librato_plugin_config_path }}/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd
+  with_items: "{{ librato_default_plugins }}"
+
+- name: Additional enabled plugins
+  template:
+    src: "{{ item }}.conf.jinja"
+    dest: "{{ librato_plugin_config_path }}/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd
+  with_items: "{{ librato_enabled_plugins }}"
+
+- name: collectd_service
+  service:
+    name: collectd
+    state: started
+    enabled: yes

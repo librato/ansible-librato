@@ -1,0 +1,9 @@
+- name: MongoDB plugin
+  copy:
+    src: "mongodb.conf.jinja"
+    dest: "{{ plugin_config_path }}/mongodb.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

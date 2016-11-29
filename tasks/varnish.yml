@@ -1,0 +1,9 @@
+- name: Varnish plugin
+  copy:
+    src: "varnish.conf.jinja"
+    dest: "{{ plugin_config_path }}/varnish.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

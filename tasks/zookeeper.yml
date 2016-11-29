@@ -1,0 +1,9 @@
+- name: ZooKeeper plugin
+  copy:
+    src: "zookeeper.conf.jinja"
+    dest: "{{ plugin_config_path }}/zookeeper.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

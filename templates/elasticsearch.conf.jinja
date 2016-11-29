@@ -1,0 +1,13 @@
+<Plugin "python">
+  ModulePath "/opt/collectd/share/collectd/"
+
+  Import "collectd-elasticsearch"
+
+  <Module "collectd-elasticsearch">
+    Url "{{ librato_elasticsearch_protocol }}://{{ librato_elasticsearch_host }}:{{ librato_elasticsearch_port }}"
+    {% if librato_elasticsearch_cluster_name is defined %}
+    Name "{{ librato_elasticsearch_cluster_name }}"
+    {% endif %}
+    Verbose {{ librato_elasticsearch_verbose }}
+  </Module>
+</Plugin>

@@ -1,0 +1,9 @@
+- name: JVM plugin
+  copy:
+    src: "jvm.conf.jinja"
+    dest: "{{ plugin_config_path }}/jvm.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

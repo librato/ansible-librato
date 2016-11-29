@@ -1,0 +1,11 @@
+<Plugin python>
+  ModulePath "/opt/collectd/share/collectd"
+  Import "collectd-haproxy"
+
+  <Module "collectd-haproxy">
+    Socket "{{ librato_haproxy_socket_file }}"
+    {% for proxy in librato_haproxy_proxies %}
+    ProxyMonitor "{{ proxy }}}"
+    {% endfor %}
+  </Module>
+</Plugin>

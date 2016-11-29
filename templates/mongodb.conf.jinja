@@ -1,0 +1,23 @@
+<LoadPlugin python>
+  Globals true
+</LoadPlugin>
+
+<Plugin python>
+  ModulePath "/opt/collectd/share/collectd"
+  ModulePath "/opt/collectd/share/collectd/pymongo.egg"
+
+  Import "collectd-mongodb"
+
+  <Module "collectd-mongodb">
+    Host "{{ librato_mongodb_host }}"
+    Port "{{ librato_mongodb_port }}"
+    {% if librato_mongodb_user is defined %}
+    User "{{ librato_mongodb_user }}"
+    {% endif %}
+    {% if librato_mongodb_password is defined %}
+    Password "{{ librato_mongodb_password }}"
+    {% endif %}
+    Database "admin", {{ '\"' + librato_mongodb_databases|join('\", \"') + '\"' }}
+    Name "{{ librato_mongodb_name }}"
+  </Module>
+</Plugin>

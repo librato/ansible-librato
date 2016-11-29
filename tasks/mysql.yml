@@ -1,0 +1,9 @@
+- name: MySQL plugin
+  copy:
+    src: "mysql.conf.jinja"
+    dest: "{{ plugin_config_path }}/mysql.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

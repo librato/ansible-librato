@@ -1,0 +1,31 @@
+---
+galaxy_info:
+  author: librato
+  description: Install and configure the Librato Agent
+  company: Librato
+  license: MIT
+  min_ansible_version: 2.2
+  platforms:
+  - name: EL
+    versions:
+      - EL6
+      - EL7
+      - 'Amazon Linux 2016.03'
+  - name: Fedora
+    versions:
+      - 23
+  - name: Ubuntu
+    versions:
+      - trusty
+      - precise
+      - xenial
+      - wily
+      - vivid
+  - name: Debian
+    versions:
+      - jessie
+      - wheezy
+  galaxy_tags:
+    - librato
+    - collectd
+    - monitoring

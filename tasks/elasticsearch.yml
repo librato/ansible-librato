@@ -1,0 +1,9 @@
+- name: Elasticsearch plugin
+  copy:
+    src: "elasticsearch.conf.jinja"
+    dest: "{{ plugin_config_path }}/elasticsearch.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

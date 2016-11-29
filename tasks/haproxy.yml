@@ -1,0 +1,9 @@
+- name: haproxy plugin
+  copy:
+    src: "haproxy.conf.jinja"
+    dest: "{{ plugin_config_path }}/haproxy.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

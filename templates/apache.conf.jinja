@@ -1,0 +1,12 @@
+LoadPlugin "apache"
+<Plugin "apache">
+   <Instance "apache80">
+       URL "{{ librato_apache_protocol }}://{{ librato_apache_host }}{{ librato_apache_path }}?auto"
+{% if librato_apache_user is defined %}
+       User "{{ librato_apache_user }}"
+{% endif %}
+{% if librato_apache_password is defined %}
+       Password "{{ librato_apache_password }}"
+{% endif %}
+   </Instance>
+</Plugin>

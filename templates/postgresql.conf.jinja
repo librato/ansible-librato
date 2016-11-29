@@ -1,0 +1,34 @@
+LoadPlugin postgresql
+<Plugin postgresql>
+  <Database postgres>
+    Host "{{ librato_postgresql_socket_file }}"
+    User "{{ librato_postgresql_user }}"
+    Query connections
+    Query transactions
+    Query queries
+    Query query_plans
+    Query table_states
+    Query disk_io
+    Query disk_usage
+  </Database>
+{% for db in librato_postgresql_databases %}
+  <Database {{ db.name }}>
+    Instance "{{ db.instance }}"
+    Host "{{ db.host }}"
+  {% if 'port' in db %}
+    Port "{{ db.port }}"
+  {% else %}
+    Port 5432
+  {% endif %}
+    User "{{ db.user }}"
+  {% if 'password' in db %}
+    Password "{{ db.password }}"
+  {% endif %}
+  {% if 'ssl_mode' in db %}
+    SSLMode "{{ db.ssl_mode }}"
+  {% else %}
+    SSLMode "Prefer"
+  {% endif %}
+  </Database>
+{% endfor %}
+</Plugin>

@@ -1,0 +1,9 @@
+- name: memcached plugin
+  copy:
+    src: "memcached.conf.jinja"
+    dest: "{{ plugin_config_path }}/memcached.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

@@ -1,0 +1,9 @@
+- name: PostgreSQL plugin
+  copy:
+    src: "postgresql.conf.jinja"
+    dest: "{{ plugin_config_path }}/postgresql.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

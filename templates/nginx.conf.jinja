@@ -1,0 +1,4 @@
+LoadPlugin nginx
+<Plugin nginx>
+  URL "{{ librato_nginx_protocol }}://{{ librato_nginx_host }}{{ librato_nginx_path }}"
+</Plugin>

@@ -1,0 +1,9 @@
+- name: Docker plugin
+  copy:
+    src: "docker.conf.jinja"
+    dest: "{{ plugin_config_path }}/docker.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

@@ -1,0 +1,3 @@
+Package: collectd-core
+Pin: release l=librato-collectd
+Pin-Priority: 1001

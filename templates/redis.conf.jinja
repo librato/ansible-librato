@@ -1,0 +1,8 @@
+LoadPlugin redis
+<Plugin redis>
+  <Node localhost>
+    Host "{{ librato_redis_host }}"
+    Port "{{ librato_redis_port }}"
+    Timeout {{ librato_redis_timeout }}
+  </Node>
+</Plugin>

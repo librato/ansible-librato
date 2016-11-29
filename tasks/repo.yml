@@ -1,0 +1,76 @@
+- name: Install EPEL repo (RedHat/CentOS/Amazon)
+  yum:
+    name: epel-release
+    state: present
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution != 'Fedora'
+
+- name: Install gpg key
+  apt_key:
+    url: http://packagecloud.io/gpg.key
+    id: 418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Create apt repo
+  apt_repository:
+    repo: 'deb {{ librato_repo_url }}{{ librato_repo_base }}/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main'
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: collectd_apt_pin
+  copy:
+    src: collectd.pref
+    dest: /etc/apt/preferences.d/collectd.pref
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: collectd-core_apt_pin
+  copy:
+    src: collectd-core.pref
+    dest: /etc/apt/preferences.d/collectd-core.pref
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'Debian'
+
+- name: Run apt-get update
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Create yum repo
+  yum_repository:
+    name: 'librato_{{ librato_repo_base }}'
+    description: 'librato_{{ librato_repo_base }}'
+    baseurl: '{{ librato_repo_url }}{{ librato_repo_base }}/el/$releasever/$basearch'
+    gpgcheck: no
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution != 'Fedora'
+    - ansible_distribution != 'Amazon'
+
+- name: Create yum repo (Fedora)
+  yum_repository:
+    name: 'librato_{{ librato_repo_base }}'
+    description: 'librato_{{ librato_repo_base }}'
+    baseurl: '{{ librato_repo_url }}{{ librato_repo_base }}/fedora/$releasever/$basearch'
+    gpgcheck: no
+  when: ansible_distribution == 'Fedora'
+
+- name: Create yum repo (Amazon Linux)
+  yum_repository:
+    name: 'librato_{{ librato_repo_base }}'
+    description: 'librato_{{ librato_repo_base }}'
+    baseurl: '{{ librato_repo_url }}{{ librato_repo_base }}/el/6/$basearch'
+    gpgcheck: no
+  when: ansible_distribution == 'Amazon'

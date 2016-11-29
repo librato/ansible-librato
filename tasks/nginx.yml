@@ -1,0 +1,9 @@
+- name: nginx plugin
+  copy:
+    src: "nginx.conf.jinja"
+    dest: "{{ plugin_config_path }}/nginx.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

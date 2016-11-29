@@ -1,0 +1,9 @@
+- name: Apache plugin
+  copy:
+    src: "apache.conf.jinja"
+    dest: "{{ plugin_config_path }}/apache.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - collectd

@@ -1,0 +1,5 @@
+tmp/
+.kitchen/
+.librarian/
+Ansiblefile.lock
+hosts

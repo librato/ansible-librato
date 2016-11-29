@@ -1,0 +1,7 @@
+LoadPlugin memcached
+<Plugin memcached>
+  <Instance "local">
+    Host "{{ librato_memcached_host }}"
+    Port "{{ librato_memcached_port }}"
+  </Instance>
+</Plugin>

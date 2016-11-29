@@ -1,0 +1,55 @@
+---
+- hosts: all
+
+  vars:
+    librato_email: 'foo@bar.baz'
+    librato_token: '1234abcd'
+    librato_logging_use_log_file: true
+    librato_enabled_plugins: ['docker', 'haproxy', 'memcached', 'mysql', 'nginx', 'redis', 'varnish', 'apache', 'elasticsearch', 'jvm', 'mongodb', 'nginx_plus', 'postgresql', 'zookeeper']
+    librato_jvm_mbeans: [
+      {
+        'name': 'foo',
+        'object_name': 'objname',
+        'instance_prefix': 'prefix',
+        'instance_from': 'from',
+        'values': [
+          {
+            'type': 'type',
+            'table': true,
+            'attribute': 'att'
+          },
+          {
+            'type': 'type',
+            'table': true,
+            'attribute': 'att'
+          }
+        ]
+      }
+    ]
+    librato_mongodb_databases: ['foo', 'bar', 'baz']
+    librato_nginx_path: '/test-status'
+    librato_nginx_plus_path: '/test-status'
+    librato_postgresql_databases: [
+      {
+        name: 'mydb',
+        instance: 'baz',
+        host: 'localhost',
+        port: 5432,
+        user: 'foo',
+        password: 'baz',
+      }
+    ]
+    librato_mysql_databases: [
+      {
+        name: 'mydb',
+        host: 'localhost',
+        port: 3306,
+        user: 'foo',
+        password: 'baz',
+        innodb_stats: true,
+      }
+    ]
+    librato_apache_path: '/test-status'
+
+  roles:
+    - ansible-librato

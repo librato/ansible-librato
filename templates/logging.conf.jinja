@@ -1,0 +1,37 @@
+##############################################################################
+# Logging                                                                    #
+#----------------------------------------------------------------------------#
+# Plugins which provide logging functions should be loaded first, so log     #
+# messages generated when loading or configuring other plugins can be        #
+# accessed.                                                                  #
+##############################################################################
+
+{% if not librato_logging_use_log_file and not librato_logging_use_syslog and not librato_logging_use_logstash %}
+### No logging configured
+{% endif %}
+
+{% if librato_logging_use_log_file %}
+LoadPlugin logfile
+
+<Plugin logfile>
+  LogLevel {{ librato_logging_log_file_log_level }}
+  File "{{ librato_logging_log_file_filename }}"
+  Timestamp {{ librato_logging_log_file_timestamp }}
+  PrintSeverity {{ librato_logging_log_file_print_severity }}
+</Plugin>
+{% endif %}
+{% if librato_logging_use_syslog %}
+LoadPlugin syslog
+
+<Plugin syslog>
+  LogLevel {{ librato_logging_syslog_log_level }}
+</Plugin>
+{% endif %}
+{% if librato_logging_use_logstash %}
+LoadPlugin log_logstash
+
+<Plugin log_logstash>
+  LogLevel {{ librato_logging_logstash_log_level }}
+  File "{{ librato_logging_logstash_filename }}"
+</Plugin>
+{% endif %}
