@@ -8,9 +8,8 @@ galaxy_info:
   platforms:
   - name: EL
     versions:
-      - EL6
-      - EL7
-      - 'Amazon Linux 2016.03'
+      - 6
+      - 7
   - name: Fedora
     versions:
       - 23
