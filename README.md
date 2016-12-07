@@ -176,7 +176,7 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
     Format of the mapping is:
     ```yaml
-    mbeans: [
+    librato_jvm_mbeans: [
       {
         name: 'mbean name'
         object_name: 'object name'
