@@ -40,6 +40,29 @@ platforms:
       ssh_key: ~/.ssh/id_rsa
     provisioner:
       ansible_platform: 'amazon'
+      require_chef_for_busser: true
+      require_ruby_for_busser: false
+    verifier:
+      ruby_bindir: '/opt/chef/embedded/bin'
+  - name: amazonlinux-2016.09
+    driver:
+      name: ec2
+      image_id: ami-5ec1673e
+      aws_ssh_key_id: test-kitchen
+      region: us-west-2
+      availability_zone: a
+      instance_type: t2.large
+      associate_public_ip: true
+      interface: dns
+    transport:
+      username: ec2-user
+      ssh_key: ~/.ssh/id_rsa
+    provisioner:
+      ansible_platform: 'amazon'
+      require_chef_for_busser: true
+      require_ruby_for_busser: false
+    verifier:
+      ruby_bindir: '/opt/chef/embedded/bin'
 # Ansible doesn't provide Debian repos so we use the omnibus installer to provide Ansible
   - name: debian-7
     driver:
