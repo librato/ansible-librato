@@ -429,13 +429,13 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
   **Type**: string
 
-  The hostname to use for the node. Defaults to the FQDN of the node (`fqdn`).
+  The hostname to use for the node.  Defaults to `nil` in favor of using `FQDNLookup`.
 
 - `librato_fqdn_lookup`
 
   **Type**: true/false
 
-  Perform an FQDN lookup or not. Defaults to `false`.
+  Perform an FQDN lookup for the hostname. Defaults to `true`.
 
 - `librato_interval`
 

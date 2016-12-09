@@ -12,7 +12,9 @@
 # Global settings for the daemon.                                            #
 ##############################################################################
 
+{% if librato_hostname is defined %}
 Hostname    "{{ librato_hostname }}"
+{% endif %}
 FQDNLookup   {{ librato_fqdn_lookup }}
 Interval     {{ librato_interval }}
 

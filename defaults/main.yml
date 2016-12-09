@@ -6,8 +6,7 @@ librato_deb_version: '5.5.0-librato51.251'
 librato_rh_version: '5.5.0_librato51.251'
 librato_config_base: '/opt/collectd/etc'
 librato_plugin_config_path: '/opt/collectd/etc/collectd.conf.d'
-librato_hostname: "{{ ansible_fqdn }}"
-librato_fqdn_lookup: false
+librato_fqdn_lookup: true
 librato_interval: 60
 librato_default_plugins: ['cpu', 'df', 'disk', 'swap', 'memory', 'load']
 librato_enabled_plugins: []
@@ -26,8 +25,6 @@ librato_logging_logstash_filename: '/opt/collectd/var/log/collectd.json.log'
 librato_apache_protocol: 'http'
 librato_apache_host: 'localhost'
 librato_apache_path: '/server-status'
-librato_apache_user: nil
-librato_apache_password: nil
 
 librato_nginx_protocol: 'http'
 librato_nginx_host: 'localhost'
@@ -44,13 +41,10 @@ librato_memcached_port: '11211'
 librato_elasticsearch_protocol: 'http'
 librato_elasticsearch_host: 'localhost'
 librato_elasticsearch_port: '9200'
-librato_elasticsearch_cluster_name: nil
 librato_elasticsearch_verbose: true
 
 librato_mongodb_host: 'localhost'
 librato_mongodb_port: '27017'
-librato_mongodb_user: nil
-librato_mongodb_password: nil
 librato_mongodb_databases: []
 librato_mongodb_name: 'mongodb'
 
