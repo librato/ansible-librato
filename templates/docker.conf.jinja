@@ -1,1 +1,4 @@
-Exec "nobody" "/opt/collectd/share/collectd/collectd-docker.py" "{{ librato_docker_protocol }}://{{ librato_docker_host }}:{{ librato_docker_port }}"
+LoadPlugin exec
+<Plugin exec>
+  Exec "nobody" "/opt/collectd/share/collectd/collectd-docker.py" "{{ librato_docker_protocol }}://{{ librato_docker_host }}:{{ librato_docker_port }}"
+</Plugin>
