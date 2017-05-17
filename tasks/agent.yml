@@ -24,6 +24,17 @@
     - collectd
   when: ansible_distribution == 'Fedora'
 
+- name: Add hiredis to system path (RedHat/CentOS/Amazon)
+  become: true
+  shell: echo "/usr/local/lib" > "/etc/ld.so.conf.d/hiredis-x86_64.conf" && ldconfig -v
+  args:
+    creates: "/etc/ld.so.conf.d/hiredis-x86_64.conf"
+  notify:
+    - collectd
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution != 'Fedora'
+
 - name: setup_collectd_config
   template:
     src: collectd.conf.jinja

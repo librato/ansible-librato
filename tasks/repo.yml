@@ -67,10 +67,26 @@
     gpgcheck: no
   when: ansible_distribution == 'Fedora'
 
-- name: Create yum repo (Amazon Linux)
+- name: Create yum repo (Amazon Linux 2016.03)
   yum_repository:
     name: 'librato_{{ librato_repo_base }}'
     description: 'librato_{{ librato_repo_base }}'
-    baseurl: '{{ librato_repo_url }}librato-amazonlinux-collectd/el/6/$basearch'
+    baseurl: '{{ librato_repo_url }}{{librato_amazon_repo_base}}-2016-03/el/6/$basearch'
     gpgcheck: no
-  when: ansible_distribution == 'Amazon'
+  when: ansible_distribution == 'Amazon' and ansible_distribution_version == '2016.03'
+
+- name: Create yum repo (Amazon Linux 2016.09)
+  yum_repository:
+    name: 'librato_{{ librato_repo_base }}'
+    description: 'librato_{{ librato_repo_base }}'
+    baseurl: '{{ librato_repo_url }}{{librato_amazon_repo_base}}-2016-09/el/6/$basearch'
+    gpgcheck: no
+  when: ansible_distribution == 'Amazon' and ansible_distribution_version == '2016.09'
+
+- name: Create yum repo (Amazon Linux 2017.03)
+  yum_repository:
+    name: 'librato_{{ librato_repo_base }}'
+    description: 'librato_{{ librato_repo_base }}'
+    baseurl: '{{ librato_repo_url }}{{librato_amazon_repo_base}}-2017-03/el/6/$basearch'
+    gpgcheck: no
+  when: ansible_distribution == 'Amazon' and ansible_distribution_version == '2017.03'

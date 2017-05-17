@@ -1,9 +1,10 @@
 librato_email: ''
 librato_token: ''
 librato_repo_url: 'https://packagecloud.io/librato/'
-librato_repo_base: 'librato-collectd'
-librato_deb_version: '5.5.0-librato51.251'
-librato_rh_version: '5.5.0_librato51.251'
+librato_repo_base: 'librato-collectd-ci'
+librato_amazon_repo_base: 'librato-amazonlinux-collectd-ci'
+librato_deb_version: '5.7.1-librato1.416'
+librato_rh_version: '5.7.1_librato1.416'
 librato_config_base: '/opt/collectd/etc'
 librato_plugin_config_path: '/opt/collectd/etc/collectd.conf.d'
 librato_fqdn_lookup: true

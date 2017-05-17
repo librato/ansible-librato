@@ -1,5 +1,6 @@
 driver:
-  name: vagrant
+  name: docker
+  use_sudo: false
 
 provisioner:
   name: ansible_playbook
@@ -15,88 +16,91 @@ verifier:
 
 platforms:
   - name: centos-6
-    driver:
-      box: centos/6
+    driver_config:
+      image: centos:6
+      platform: centos
   - name: centos-7
-    driver:
-      box: centos/7
+    driver_config:
+      image: centos:7
+      platform: centos
   - name: fedora-23
-    driver:
-      box: fedora/23-cloud-base
-# Due to a bug in kitchen-ansible, statically set the ansible_platform to Amazon
-# See: https://github.com/neillturner/kitchen-ansible/issues/216
+    driver_config:
+      image: fedora:23
+      platform: rhel
+  - name: debian-7
+    driver_config:
+      image: debian:7
+      platform: rhel
+    provisioner:
+      require_ansible_omnibus: true
+      require_ansible_repo: false
+  - name: debian-8
+    driver_config:
+      image: debian:8
+      platform: rhel
+    provisioner:
+      require_ansible_omnibus: true
+      require_ansible_repo: false
+  - name: ubuntu-12.04
+    driver_config:
+      image: ubuntu:12.04
+      platform: ubuntu
+    provisioner:
+      require_ansible_omnibus: true
+      require_ansible_repo: false
+    verifier:
+      ruby_bindir: '/opt/chef/embedded/bin'
+  - name: ubuntu-15.04
+    driver_config:
+      image: ubuntu:15.04
+      platform: ubuntu
+  - name: ubuntu-15.10
+    driver_config:
+      image: ubuntu:15.10
+      platform: ubuntu
+  - name: ubuntu-16.04
+    driver_config:
+      image: ubuntu:16.04
+      platform: ubuntu
   - name: amazonlinux-2016.03
-    driver:
-      name: ec2
-      image_id: ami-7172b611
-      aws_ssh_key_id: test-kitchen
-      region: us-west-2
-      availability_zone: a
-      instance_type: t2.large
-      associate_public_ip: true
-      interface: dns
-    transport:
-      username: ec2-user
-      ssh_key: ~/.ssh/id_rsa
+    driver_config:
+      image: librato/agent_amazon_2016.03
+      platform: centos
+      remove_images: true
     provisioner:
       ansible_platform: 'amazon'
+      ansible_distribution: 'Amazon'
+      ansible_distribution_version: '2016.03'
       require_chef_for_busser: true
       require_ruby_for_busser: false
     verifier:
       ruby_bindir: '/opt/chef/embedded/bin'
   - name: amazonlinux-2016.09
-    driver:
-      name: ec2
-      image_id: ami-5ec1673e
-      aws_ssh_key_id: test-kitchen
-      region: us-west-2
-      availability_zone: a
-      instance_type: t2.large
-      associate_public_ip: true
-      interface: dns
-    transport:
-      username: ec2-user
-      ssh_key: ~/.ssh/id_rsa
+    driver_config:
+      image: librato/agent_amazon_2016.09
+      platform: centos
+      remove_images: true
     provisioner:
       ansible_platform: 'amazon'
+      ansible_distribution: 'Amazon'
+      ansible_distribution_version: '2016.09'
       require_chef_for_busser: true
       require_ruby_for_busser: false
     verifier:
       ruby_bindir: '/opt/chef/embedded/bin'
-# Ansible doesn't provide Debian repos so we use the omnibus installer to provide Ansible
-  - name: debian-7
-    driver:
-      box: debian/wheezy64
+  - name: amazonlinux-2017.03
+    driver_config:
+      image: librato/agent_amazon_2017.03
+      platform: centos
+      remove_images: true
     provisioner:
-      require_ansible_omnibus: true
-      require_ansible_repo: false
-  - name: debian-8
-    driver:
-      box: debian/jessie64
-    provisioner:
-      require_ansible_omnibus: true
-      require_ansible_repo: false
-# Ubuntu 12.04 uses Ruby 1.8.7 while busser requires Ruby 1.9+, so we need to use Chef to run busser
-  - name: ubuntu-12.04
-    driver:
-      box: ubuntu/precise64
-    provisioner:
+      ansible_platform: 'amazon'
+      ansible_distribution: 'Amazon'
+      ansible_distribution_version: '2017.03'
       require_chef_for_busser: true
       require_ruby_for_busser: false
     verifier:
       ruby_bindir: '/opt/chef/embedded/bin'
-  - name: ubuntu-14.04
-    driver:
-      box: ubuntu/trusty64
-  - name: ubuntu-15.04
-    driver:
-      box: larryli/vivid64
-  - name: ubuntu-15.10
-    driver:
-      box: ubuntu/wily64
-  - name: ubuntu-16.04
-    driver:
-      box: ubuntu/xenial64
 
 suites:
   - name: default
