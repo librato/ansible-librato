@@ -413,6 +413,12 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
   The repo base to use. Defaults to Librato's repo collection `librato-collectd`.
 
+- `librato_amazon_repo_base`
+
+  **Type**: string
+
+  The repo base to use for Amazon Linux. Defaults to Librato's repo collection `librato-amazonlinux-collectd`.
+
 - `librato_config_base`
 
   **Type**: string
