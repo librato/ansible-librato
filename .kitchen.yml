@@ -1,11 +1,15 @@
 driver:
   name: docker
   use_sudo: false
+  privileged: true
+  driver_config:
+    ssl_verify_mode: ":verify_none"
 
 provisioner:
   name: ansible_playbook
   require_ansible_repo: true
   ansible_verbose: true
+  ansible_verbosity: 2
   require_chef_for_busser: false
   require_ruby_for_busser: true
   hosts: hosts
@@ -14,19 +18,26 @@ provisioner:
 verifier:
   ruby_bindir: '/usr/bin'
 
+transport:
+  name: ssh
+  connection_timeout: 60
+
 platforms:
   - name: centos-6
     driver_config:
       image: centos:6
       platform: centos
+
   - name: centos-7
     driver_config:
       image: centos:7
       platform: centos
+
   - name: fedora-23
     driver_config:
       image: fedora:23
       platform: rhel
+
   - name: debian-7
     driver_config:
       image: debian:7
@@ -34,6 +45,7 @@ platforms:
     provisioner:
       require_ansible_omnibus: true
       require_ansible_repo: false
+
   - name: debian-8
     driver_config:
       image: debian:8
@@ -41,6 +53,7 @@ platforms:
     provisioner:
       require_ansible_omnibus: true
       require_ansible_repo: false
+
   - name: ubuntu-12.04
     driver_config:
       image: ubuntu:12.04
@@ -50,23 +63,27 @@ platforms:
       require_ansible_repo: false
     verifier:
       ruby_bindir: '/opt/chef/embedded/bin'
+
   - name: ubuntu-15.04
     driver_config:
       image: ubuntu:15.04
       platform: ubuntu
+
   - name: ubuntu-15.10
     driver_config:
       image: ubuntu:15.10
       platform: ubuntu
+
   - name: ubuntu-16.04
     driver_config:
       image: ubuntu:16.04
       platform: ubuntu
+
   - name: amazonlinux-2016.03
     driver_config:
       image: librato/agent_amazon_2016.03
-      platform: centos
-      remove_images: true
+      platform: rhel
+      provision_command: sed -i'' 's/releasever=latest/# releasever=latest/' /etc/yum.conf && yum -y reinstall glibc-common &&  yum -y remove ca-certificates && yum -y install ca-certificates && yum -y update ca-certificates && yum -y update && yum -y --skip-broke groupinstall "Development Tools" && yum -y install epel-release yum-utils && yum-config-manager --enable epel 1>/dev/null && yum -y install python27 && yum -y remove python-devel && yum -y install python27-devel && curl -L https://bootstrap.pypa.io/get-pip.py > get-pip.py && python2.7 get-pip.py && yum -y install gcc gcc-c++
     provisioner:
       ansible_platform: 'amazon'
       ansible_distribution: 'Amazon'
@@ -75,11 +92,13 @@ platforms:
       require_ruby_for_busser: false
     verifier:
       ruby_bindir: '/opt/chef/embedded/bin'
+    file: path=/tmp state=directory mode=0777 recurse=yes
+
   - name: amazonlinux-2016.09
     driver_config:
-      image: librato/agent_amazon_2016.09
-      platform: centos
-      remove_images: true
+      image: amazonlinux:2016.09
+      platform: rhel
+      provision_command: sed -i'' 's/releasever=latest/# releasever=latest/' /etc/yum.conf && yum -y reinstall glibc-common &&  yum -y remove ca-certificates && yum -y install ca-certificates && yum -y update ca-certificates && yum -y update && yum -y --skip-broke groupinstall "Development Tools" && yum -y install epel-release yum-utils && yum-config-manager --enable epel 1>/dev/null && yum -y install python27 && yum -y remove python-devel && yum -y install python27-devel && curl -L https://bootstrap.pypa.io/get-pip.py > get-pip.py && python2.7 get-pip.py && yum -y install gcc gcc-c++
     provisioner:
       ansible_platform: 'amazon'
       ansible_distribution: 'Amazon'
@@ -88,11 +107,13 @@ platforms:
       require_ruby_for_busser: false
     verifier:
       ruby_bindir: '/opt/chef/embedded/bin'
+    file: path=/tmp state=directory mode=0777 recurse=yes
+
   - name: amazonlinux-2017.03
     driver_config:
-      image: librato/agent_amazon_2017.03
-      platform: centos
-      remove_images: true
+      image: amazonlinux:2017.03
+      platform: rhel
+      provision_command: sed -i'' 's/releasever=latest/# releasever=latest/' /etc/yum.conf && yum -y reinstall glibc-common &&  yum -y remove ca-certificates && yum -y install ca-certificates && yum -y update ca-certificates && yum -y update && yum -y --skip-broke groupinstall "Development Tools" && yum -y install epel-release yum-utils && yum-config-manager --enable epel 1>/dev/null && yum -y install python27 && yum -y remove python-devel && yum -y install python27-devel && curl -L https://bootstrap.pypa.io/get-pip.py > get-pip.py && python2.7 get-pip.py && yum -y install gcc gcc-c++
     provisioner:
       ansible_platform: 'amazon'
       ansible_distribution: 'Amazon'
@@ -101,6 +122,7 @@ platforms:
       require_ruby_for_busser: false
     verifier:
       ruby_bindir: '/opt/chef/embedded/bin'
+    file: path=/tmp state=directory mode=0777 recurse=yes
 
 suites:
   - name: default
