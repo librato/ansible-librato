@@ -527,6 +527,8 @@ To use your own custom or upstream collectd plugin, simply have another module d
 * RHEL 7 / CentOS 7
 * Fedora 23
 * Amazon Linux 2016.03
+* Amazon Linux 2016.09
+* Amazon Linux 2017.03
 * Ubuntu 12.04
 * Ubuntu 14.04
 * Ubuntu 15.04
