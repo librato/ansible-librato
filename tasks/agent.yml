@@ -10,6 +10,7 @@
   yum:
     name: collectd-core-{{ librato_rh_version }}
     state: present
+    enablerepo: epel
   notify:
     - collectd
   when:
