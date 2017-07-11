@@ -443,61 +443,61 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
   The global plugin polling interval in seconds. Defaults to `60`.
 
-- `librato_use_log_file`
+- `librato_logging_use_log_file`
 
   **Type**: true/false
 
   Write collectd logs to a file. Defaults to `true`.
 
-- `librato_use_syslog`
+- `librato_logging_use_syslog`
 
   **Type**: true/false
 
   Write collectd logs to syslog. Defaults to `false`.
 
-- `librato_use_logstash`
+- `librato_logging_use_logstash`
 
   **Type**: true/false
 
   Write collectd logs to a logstash-formatted file. Defaults to `false`.
 
-- `librato_log_file_log_level`
+- `librato_logging_log_file_log_level`
 
   **Type**: string
 
   The log level to use for `log_file`. Defaults to `info`.
 
-- `librato_log_file_filename`
+- `librato_logging_log_file_filename`
 
   **Type**: string
 
   The filename to use for `log_file`. Defaults to `/opt/collectd/var/log/collectd.log`.
 
-- `librato_log_file_timestamp`
+- `librato_logging_log_file_timestamp`
 
   **Type**: true/false
 
   Use timestamps in the log file or not. Defaults to `true`.
 
-- `librato_log_file_print_severity`
+- `librato_logging_log_file_print_severity`
 
   **Type**: true/false
 
   Include severity levels in the log file or not. Defaults to `true`.
 
-- `librato_syslog_log_level`
+- `librato_logging_syslog_log_level`
 
   **Type**: string
 
   The log level to use for `syslog`. Defaults to `info`.
 
-- `librato_logstash_log_level`
+- `librato_logging_logstash_log_level`
 
   **Type**: string
 
   The log level to use for `logstash`. Defaults to `info`.
 
-- `librato_logstash_filename`
+- `librato_logging_logstash_filename`
 
   **Type**: string
 
