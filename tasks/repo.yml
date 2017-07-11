@@ -5,6 +5,8 @@
   when:
     - ansible_os_family == 'RedHat'
     - ansible_distribution != 'Fedora'
+  tags:
+    - librato
 
 - name: Install gpg key
   apt_key:
@@ -12,18 +14,24 @@
     id: 418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB
     state: present
   when: ansible_os_family == 'Debian'
+  tags:
+    - librato
 
 - name: Install apt-transport-https
   apt:
     name: apt-transport-https
     state: present
   when: ansible_os_family == 'Debian'
+  tags:
+    - librato
 
 - name: Create apt repo
   apt_repository:
     repo: 'deb {{ librato_repo_url }}{{ librato_repo_base }}/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main'
     state: present
   when: ansible_os_family == 'Debian'
+  tags:
+    - librato
 
 - name: collectd_apt_pin
   copy:
@@ -33,6 +41,8 @@
     group: root
     mode: 0644
   when: ansible_os_family == 'Debian'
+  tags:
+    - librato
 
 - name: collectd-core_apt_pin
   copy:
@@ -42,11 +52,15 @@
     group: root
     mode: 0644
   when: ansible_os_family == 'Debian'
+  tags:
+    - librato
 
 - name: Run apt-get update
   apt:
     update_cache: yes
   when: ansible_os_family == 'Debian'
+  tags:
+    - librato
 
 - name: Create yum repo
   yum_repository:
@@ -58,6 +72,8 @@
     - ansible_os_family == 'RedHat'
     - ansible_distribution != 'Fedora'
     - ansible_distribution != 'Amazon'
+  tags:
+    - librato
 
 - name: Create yum repo (Fedora)
   yum_repository:
@@ -66,6 +82,8 @@
     baseurl: '{{ librato_repo_url }}{{ librato_repo_base }}/fedora/$releasever/$basearch'
     gpgcheck: no
   when: ansible_distribution == 'Fedora'
+  tags:
+    - librato
 
 - name: Create yum repo (Amazon Linux)
   yum_repository:
@@ -74,3 +92,5 @@
     baseurl: '{{ librato_repo_url }}librato-amazonlinux-collectd/el/6/$basearch'
     gpgcheck: no
   when: ansible_distribution == 'Amazon'
+  tags:
+    - librato
