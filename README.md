@@ -91,6 +91,25 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
     The password to use for password-protected status pages. Defaults to empty.
 
+### Plugin: `df`
+  - `librato_df_fstype`
+
+    **Type**: array
+
+    The FSType to use. Defaults to `["ext2", "ext3", "ext4", "xfs", "jfs", "btrfs", "reiserfs", "vboxsf", "tmpfs"]`.
+
+  - `librato_df_device`
+
+    **Type**: array
+
+    The Device to use. Defaults to `''`
+
+  - `librato_df_mountpoint`
+
+    **Type**: array
+
+    The MountPoint to use. Defaults to `''`
+
 ### Plugin: `docker`
   - `librato_docker_protocol`
 
@@ -507,7 +526,7 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
   **Type**: array
 
-  A list of default plugins to include. Defaults to: `cpu`, `df`, `disk`, `swap`, `memory`, `load`.
+  A list of default plugins to include. Defaults to: `cpu`, `disk`, `swap`, `memory`, `load`.
 
 - `librato_enabled_plugins`
    

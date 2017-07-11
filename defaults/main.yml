@@ -8,7 +8,7 @@ librato_config_base: '/opt/collectd/etc'
 librato_plugin_config_path: '/opt/collectd/etc/collectd.conf.d'
 librato_fqdn_lookup: true
 librato_interval: 60
-librato_default_plugins: ['cpu', 'df', 'disk', 'swap', 'memory', 'load']
+librato_default_plugins: ['cpu', 'disk', 'swap', 'memory', 'load']
 librato_enabled_plugins: []
 
 librato_logging_use_log_file: true
@@ -71,3 +71,7 @@ librato_docker_port: '2735'
 librato_jvm_host: 'localhost'
 librato_jvm_service_url: 'service:jmx:rmi:///jndi/rmi://localhost:17264/jmxrmi'
 librato_jvm_mbeans: []
+
+librato_df_fstype: ["ext2", "ext3", "ext4", "xfs", "jfs", "btrfs", "reiserfs", "vboxsf", "tmpfs"]
+librato_df_device: ''
+librato_df_mountpoint: ''

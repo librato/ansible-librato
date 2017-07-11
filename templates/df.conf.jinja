@@ -1,0 +1,19 @@
+LoadPlugin df
+<Plugin df>
+{% if librato_df_mountpoint|length > 0 %}
+{% for mountpoint in librato_df_mountpoint %}
+  MountPoint "{{ mountpoint }}"
+{% endfor %}
+{% endif %}
+{% if librato_df_device|length > 0 %}{% for device in librato_df_device %}
+  Device "{{ device }}"
+{% endfor %}
+{% endif %}
+{% if librato_df_fstype|length > 0 %}{% for fstype in librato_df_fstype %}
+  FSType "{{ fstype }}"
+{% endfor %}
+{% endif %}
+  ReportInodes false
+  ValuesAbsolute false
+  ValuesPercentage true
+</Plugin>
