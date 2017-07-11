@@ -5,6 +5,8 @@
   notify:
     - collectd
   when: ansible_os_family == 'Debian'
+  tags:
+    - librato
 
 - name: Install package (RedHat/CentOS/Amazon)
   yum:
@@ -15,6 +17,8 @@
   when:
     - ansible_os_family == 'RedHat'
     - ansible_distribution != 'Fedora'
+  tags:
+    - librato
 
 - name: Install package (Fedora)
   dnf:
@@ -23,6 +27,8 @@
   notify:
     - collectd
   when: ansible_distribution == 'Fedora'
+  tags:
+    - librato
 
 - name: setup_collectd_config
   template:
@@ -33,6 +39,8 @@
     mode: 0644
   notify:
     - collectd
+  tags:
+    - librato
 
 - name: setup_logging_plugin
   template:
@@ -43,6 +51,8 @@
     mode: 0644
   notify:
     - collectd
+  tags:
+    - librato
 
 - name: setup_librato_plugin
   template:
@@ -53,6 +63,8 @@
     mode: 0644
   notify:
     - collectd
+  tags:
+    - librato
 
 - name: Default plugins
   copy:
@@ -64,6 +76,8 @@
   notify:
     - collectd
   with_items: "{{ librato_default_plugins }}"
+  tags:
+    - librato
 
 - name: Additional enabled plugins
   template:
@@ -75,9 +89,13 @@
   notify:
     - collectd
   with_items: "{{ librato_enabled_plugins }}"
+  tags:
+    - librato
 
 - name: collectd_service
   service:
     name: collectd
     state: started
     enabled: yes
+  tags:
+    - librato

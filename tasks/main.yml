@@ -1,3 +1,8 @@
 ---
 - include: repo.yml tags=librato
+  tags:
+    - librato
+
 - include: agent.yml tags=librato
+  tags:
+    - librato
