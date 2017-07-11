@@ -53,6 +53,7 @@ To include a plugin, set any variables you need for it, then add it to the `libr
 * `mysql`
 * `redis`
 * `haproxy`
+* `interface`
 
 ## Usage
 
@@ -155,6 +156,10 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
     The default proxies to collect. Defaults to `server`, `frontend`, `backend`.
 
+### Plugin: `interface`
+
+  Interface has no configurable attributes.
+  
 ### Plugin: `jvm`
   - `librato_jvm_host`
 
