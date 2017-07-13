@@ -108,7 +108,7 @@ To use your own custom or upstream collectd plugin, simply have another module d
 
     **Type**: string
 
-    The Docker port. Defaults to `2735`
+    The Docker port. Defaults to `2375`
 
 ### Plugin: `elasticsearch`
 
