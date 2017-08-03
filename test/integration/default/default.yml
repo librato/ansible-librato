@@ -5,7 +5,7 @@
     librato_email: 'foo@bar.baz'
     librato_token: '1234abcd'
     librato_logging_use_log_file: true
-    librato_enabled_plugins: ['docker', 'haproxy', 'memcached', 'mysql', 'nginx', 'redis', 'varnish', 'apache', 'elasticsearch', 'jvm', 'mongodb', 'nginx_plus', 'postgresql', 'zookeeper']
+    librato_enabled_plugins: ['df', 'docker', 'haproxy', 'memcached', 'mysql', 'nginx', 'redis', 'varnish', 'apache', 'elasticsearch', 'jvm', 'mongodb', 'nginx_plus', 'postgresql', 'zookeeper']
     librato_jvm_mbeans: [
       {
         'name': 'foo',

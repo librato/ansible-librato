@@ -20,7 +20,7 @@ describe file('/opt/collectd/var/log/collectd.log') do
   it { should contain 'Initialization complete' }
 end
 
-%w(cpu df disk swap memory load).each do |plugin|
+%w(cpu disk swap memory load).each do |plugin|
   describe file("/opt/collectd/etc/collectd.conf.d/#{plugin}.conf") do
     it { should exist }
     it { should contain "LoadPlugin #{plugin}" }
